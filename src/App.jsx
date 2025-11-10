@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router";
+import { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 import styles from "./App.module.css";
 
 function App() {
+  const [numberOfCartItems, setNumberOfCartItems] = useState(0);
+  const [shoppingItems, setShoppingItems] = useState({});
+  const [idsOfItemsInCart, setIdsOfItemsInCart] = useState([]);
+
   return (
     <>
       <div id={styles.main}>
@@ -16,12 +20,28 @@ function App() {
               <Link to="/shop">Shop</Link>
             </button>
             <button>
-              <Link to="/cart">Cart</Link>
+              {numberOfCartItems == 0 ? (
+                <Link to="/cart">Cart</Link>
+              ) : (
+                <Link to="/cart">
+                  Cart{" "}
+                  <span className={styles.cartItems}>{numberOfCartItems}</span>
+                </Link>
+              )}
             </button>
           </ul>
         </nav>
         <main>
-          <Outlet />
+          <Outlet
+            context={[
+              setNumberOfCartItems,
+              numberOfCartItems,
+              idsOfItemsInCart,
+              setIdsOfItemsInCart,
+              shoppingItems,
+              setShoppingItems,
+            ]}
+          />
         </main>
       </div>
     </>

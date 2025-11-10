@@ -1,3 +1,42 @@
-function Cart() {}
+import { useOutletContext } from "react-router-dom";
+import ItemCard from "../components/ItemCard";
+import styles from "./styles/Cart.module.css";
+
+function Cart() {
+  const [
+    setNumberOfCartItems,
+    numberOfCartItems,
+    idsOfItemsInCart,
+    setIdsOfItemsInCart,
+    shoppingItems,
+  ] = useOutletContext();
+
+  return (
+    <section className={styles.shopSection}>
+      <div className={styles.title}>Your Cart</div>
+      <div className={styles.content}>
+        {Object.keys(shoppingItems).map((key) => {
+          if (idsOfItemsInCart.includes(key)) {
+            return (
+              <ItemCard
+                id={key}
+                title={shoppingItems[key].title}
+                price={shoppingItems[key].price}
+                rating={shoppingItems[key].rating}
+                description={shoppingItems[key].description}
+                src={shoppingItems[key].image}
+                key={key}
+                setNumberOfCartItems={setNumberOfCartItems}
+                numberOfCartItems={numberOfCartItems}
+                idsOfItemsInCart={idsOfItemsInCart}
+                setIdsOfItemsInCart={setIdsOfItemsInCart}
+              />
+            );
+          }
+        })}
+      </div>
+    </section>
+  );
+}
 
 export default Cart;
