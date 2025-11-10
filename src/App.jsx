@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
+import Footer from "./Footer";
 import styles from "./App.module.css";
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
             ]}
           />
         </main>
+
+        <Footer />
       </div>
     </>
   );
